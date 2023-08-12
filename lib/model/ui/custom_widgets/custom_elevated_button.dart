@@ -13,23 +13,35 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      child: Container(
+        height: MediaQuery.of(context).size.height * .05,
+        width: MediaQuery.of(context).size.width * 1.5,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Color(0xff0062bd), Color(0x7f0062bd), Color(0x440062bd)],
           ),
-          backgroundColor: Theme.of(context).primaryColor,
-          padding: const EdgeInsets.symmetric(
-              vertical: 8), // Adjust the vertical padding here
+          borderRadius: BorderRadius.circular(50),
         ),
-        child: Text(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(color: Colors.white),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ), // Set the button's color to transparent
+            elevation: 0, // Remove any elevation shadow
+          ),
+          child: Text(
+            label,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Colors.white),
+          ),
         ),
       ),
     );

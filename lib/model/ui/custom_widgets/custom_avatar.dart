@@ -11,8 +11,8 @@ class CustomAvatar extends StatelessWidget {
       elevation: 15,
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.15,
-        height: MediaQuery.of(context).size.width * 0.15,
+        width: MediaQuery.of(context).size.width * 0.12,
+        height: MediaQuery.of(context).size.width * 0.12,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: Colors.white),
         child: Padding(

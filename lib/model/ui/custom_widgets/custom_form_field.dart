@@ -8,6 +8,7 @@ class CustomFormField extends StatelessWidget {
   final TextInputType? type;
   final TextEditingController? controller;
   final bool hideText;
+  final Widget? suffixIcon;
 
   const CustomFormField({
     Key? key,
@@ -16,6 +17,7 @@ class CustomFormField extends StatelessWidget {
     this.validator,
     this.hideText = false,
     this.controller,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -34,15 +36,16 @@ class CustomFormField extends StatelessWidget {
             controller: controller,
             validator: validator,
             keyboardType: type,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black, fontSize: 15),
             decoration: InputDecoration(
               border: InputBorder.none,
               fillColor: Colors.white,
+              suffixIcon: suffixIcon,
               filled: true,
               hintText: hintText,
               hintStyle: const TextStyle(
                 color: Color(0xffB1B1B1),
-                fontSize: 10,
+                fontSize: 12,
               ),
             ),
           ),
