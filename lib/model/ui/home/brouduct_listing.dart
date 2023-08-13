@@ -10,20 +10,17 @@ class ProductListing extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: List.generate(products.length, (index) {
-            return Column(
-              crossAxisAlignment: index % 2 == 0
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
-              children: [
-                ProductItem(product: products[index]),
-              ],
-            );
-          }),
-        ),
+      child: Row(
+        children: List.generate(products.length, (index) {
+          return Column(
+            crossAxisAlignment: index % 2 == 0
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+            children: [
+              ProductItem(product: products[index]),
+            ],
+          );
+        }),
       ),
     );
   }

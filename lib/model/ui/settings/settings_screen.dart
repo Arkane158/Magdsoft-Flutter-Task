@@ -33,69 +33,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
       create: (context) => viewModel,
       child: Scaffold(
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: CustomColorGridContainer(child:
-                    BlocBuilder<SettingsViewModel, SettingsState>(
+              child: CustomColorGridContainer(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: BlocBuilder<SettingsViewModel, SettingsState>(
                         builder: (context, state) {
-                  if (state is LoadingState) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is ErrorState) {
-                    return Center(
-                      child: Text(state.errorMessage),
-                    );
-                  } else if (state is SuccessState) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    MediaQuery.of(context).size.height * .06,
-                                horizontal: 10,
-                              ),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Center(
-                                      child: Text(
-                                        'Help',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge,
-                                      ),
-                                    ),
+                      if (state is LoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is ErrorState) {
+                        return Center(
+                          child: Text(state.errorMessage),
+                        );
+                      } else if (state is SuccessState) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            .06,
+                                    horizontal: 10,
                                   ),
-                                  // Use the help data to build the ExpandableContainers
-                                  if (state.help != null)
-                                    for (var helpItem in state.help!)
-                                      ExpandableContainer(
-                                        title: helpItem.question ?? '',
-                                        content: helpItem.answer ?? '',
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Text(
+                                            'Help',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                          ),
+                                        ),
                                       ),
-                                ],
+                                      // Use the help data to build the ExpandableContainers
+                                      if (state.help != null)
+                                        for (var helpItem in state.help!)
+                                          ExpandableContainer(
+                                            title: helpItem.question ?? '',
+                                            content: helpItem.answer ?? '',
+                                          ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  }
-                  return Container();
-                })),
+                        );
+                      }
+                      return Container();
+                    }),
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .1),
               child: CustomElevatedButton(
+                radius: 50,
                 onPressed: () {
                   Navigator.pushReplacementNamed(
                       context, HomeScreen.screenName);

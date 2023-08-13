@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magdsoftfluttertask/model/ui/home/home_viewmodel.dart';
 import 'package:magdsoftfluttertask/model/ui/home/product_item.dart';
+import 'package:magdsoftfluttertask/model/ui/itemview/item_view_screen.dart';
 import 'package:magdsoftfluttertask/model/ui/login/login_screen.dart';
 import 'package:magdsoftfluttertask/model/ui/settings/settings_screen.dart';
 import '../custom_widgets/custom_colorgrid_container.dart';
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
+        extendBody: true,
         resizeToAvoidBottomInset: false,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CustomColorGridContainer(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * .06,
+                    vertical: MediaQuery.of(context).size.height * .05,
                     horizontal: 10,
                   ),
                   child: Column(
@@ -72,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * .22,
+                        height: MediaQuery.of(context).size.height * .18,
                         child: CarouselSlider(
                           items: [
                             Stack(
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 imagePath: 'assets/images/carsour2.png')
                           ],
                           options: CarouselOptions(
-                            height: MediaQuery.of(context).size.height * .2,
+                            height: MediaQuery.of(context).size.height * .3,
                             enlargeCenterPage: true,
                             autoPlay: true, // Set to true for auto play.
                             autoPlayCurve: Curves.fastOutSlowIn,
@@ -122,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: SingleChildScrollView(child:
-                      BlocBuilder<HomeViewModel, HomeState>(
-                          builder: (context, state) {
+                  BlocBuilder<HomeViewModel, HomeState>(
+                      builder: (context, state) {
                 if (state is LoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(),
@@ -132,63 +134,70 @@ class _HomeScreenState extends State<HomeScreen> {
                   Center(
                     child: Text(state.errorMessage),
                   );
-                }
-                else if (state is SucessState){
-                              return StaggeredGridView.countBuilder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2, // Two products in each row
-                          crossAxisSpacing:
-                              15.0, // Adjust the spacing between columns
-                          mainAxisSpacing:
-                              10.0, // Adjust the spacing between rows
-                          staggeredTileBuilder: (index) {
-                            return index % 2 == 0
-                                ? const StaggeredTile.fit(1)
-                                : const StaggeredTile.fit(1);
-                          },
-                          itemCount:state.products.length +
-                              1, // +1 for the text widget
-                          itemBuilder: (context, index) {
-                            // Show the text widget at index 0 (first item in the grid)
-                            if (index == 0) {
-                              return const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text("Recomended for You",
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                              );
-                            }
-
-                            // Subtract 1 from index to adjust for the added text widget
-                            final productIndex = index - 1;
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ProductItem(
-                                product: state.products[productIndex],
-                              ),
-                            );
-                          },
+                } else if (state is SucessState) {
+                  return StaggeredGridView.countBuilder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2, // Two products in each row
+                    crossAxisSpacing:
+                        15.0, // Adjust the spacing between columns
+                    mainAxisSpacing: 1.0, // Adjust the spacing between rows
+                    staggeredTileBuilder: (index) {
+                      return index % 2 == 0
+                          ? const StaggeredTile.fit(1)
+                          : const StaggeredTile.fit(1);
+                    },
+                    itemCount:
+                        state.products.length + 1, // +1 for the text widget
+                    itemBuilder: (context, index) {
+                      // Show the text widget at index 0 (first item in the grid)
+                      if (index == 0) {
+                        return const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Recomended for You",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w400,
+                              )),
                         );
+                      }
+
+                      // Subtract 1 from index to adjust for the added text widget
+                      final productIndex = index - 1;
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, ItemViewScreen.screenName,
+                                arguments: state.products[productIndex]);
+                          },
+                          child: ProductItem(
+                            product: state.products[productIndex],
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 }
                 return const Text('');
                 // return widget here based on BlocA's state
-              })
-                  ),
+              })),
             )
           ],
         ),
         bottomNavigationBar: ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(15),
+          ),
           child: BottomAppBar(
             shape: const CircularNotchedRectangle(),
-            notchMargin: 6,
+            notchMargin: 5,
             color: Colors.white,
-            elevation: 0,
+            elevation: 5,
             child: SizedBox(
-              height: 80, // Adjust the height to your desired value
+              height: MediaQuery.of(context).size.height *
+                  .08, // Adjust the height to your desired value
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center, // Add this line
@@ -243,6 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               // Set the background color to a gradient
               backgroundColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
@@ -265,6 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {},
                   elevation: 0,
                   backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.transparent,
                   child: const Icon(Icons.home, color: Colors.white),
                 ),
               ),

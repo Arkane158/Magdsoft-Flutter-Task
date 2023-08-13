@@ -9,7 +9,7 @@ class OTPViewModel extends Cubit<OTPState> {
     try {
       var response = await ApliManager.otpRequest(otp, phone);
       if (response.status !=200 ) {
-        emit(ErrorState(response.message.toString()));
+        emit(ErrorState('${response.message}'));
       } else if (response.status == 200) {
           emit(SuccessState(HomeScreen.screenName));
         

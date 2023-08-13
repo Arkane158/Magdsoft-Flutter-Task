@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class BrandSelectionNotifier extends ChangeNotifier {
-  String _selectedBrand = '';
+  String _selectedBrand = 'All';
 
   String get selectedBrand => _selectedBrand;
 

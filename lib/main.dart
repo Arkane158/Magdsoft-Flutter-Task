@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magdsoftfluttertask/model/providers/home_provider.dart';
+import 'package:magdsoftfluttertask/model/ui/itemview/item_view_screen.dart';
 import 'package:magdsoftfluttertask/model/ui/settings/settings_screen.dart';
 import 'package:magdsoftfluttertask/model/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-       providers: [
+      providers: [
         ChangeNotifierProvider<BrandSelectionNotifier>(
           create: (_) => BrandSelectionNotifier(),
         ),
-      
-        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -33,8 +32,9 @@ class MyApp extends StatelessWidget {
           LoginScreen.screenName: (context) => const LoginScreen(),
           OtpScreen.screenName: (context) => const OtpScreen(),
           HomeScreen.screenName: (context) => const HomeScreen(),
-          SettingsScreen.screenName:(context)=>const SettingsScreen(),
-          Splash.screenNames:(context) => const Splash()
+          SettingsScreen.screenName: (context) => const SettingsScreen(),
+          Splash.screenNames: (context) => const Splash(),
+          ItemViewScreen.screenName: (context) => const ItemViewScreen()
         },
         initialRoute: Splash.screenNames,
       ),

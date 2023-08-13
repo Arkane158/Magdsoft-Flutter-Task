@@ -157,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
                                         child: CustomElevatedButton(
+                                          radius: 50,
                                           onPressed: () {
                                             login();
                                           },

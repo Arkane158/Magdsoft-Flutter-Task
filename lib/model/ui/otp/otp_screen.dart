@@ -137,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.09,
                     ),
-                    child: CustomElevatedButton(
+                    child: CustomElevatedButton(radius: 50,
                         onPressed: verify, label: 'Verify'),
                   ),
                 ),
