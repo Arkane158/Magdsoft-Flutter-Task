@@ -10,6 +10,7 @@ class LoginViewModel extends Cubit<LoginState> {
 
   void login(String name, String phone) async {
     try {
+      emit(LoadingState());
       var response = await usecase.invoke(name, phone);
 
       if (response != null) {
@@ -21,9 +22,12 @@ class LoginViewModel extends Cubit<LoginState> {
           emit(ErrorState("Unexpected response status: ${response.status}"));
         }
       } else {
+        emit(HideLoadingState());
         emit(ErrorState("Response is null"));
       }
     } catch (e) {
+      emit(HideLoadingState());
+
       if (e is IOException || e is HttpException) {
         emit(ErrorState('Check Your Internet connection'));
       } else {
@@ -46,3 +50,5 @@ class SuccessState extends LoginState {
   String screenName;
   SuccessState(this.screenName);
 }
+
+class HideLoadingState extends LoginState {}

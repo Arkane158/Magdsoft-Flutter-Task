@@ -10,13 +10,19 @@ class OTPViewModel extends Cubit<OTPState> {
   OTPViewModel(this.usecase) : super(LoadingState());
   void sumbit({required String otp, required String phone}) async {
     try {
+      emit(LoadingState());
       var response = await usecase.invoke(otp, phone);
       if (response?.status != 200) {
+        emit(HideLoadingState());
         emit(ErrorState('${response?.message}'));
       } else if (response?.status == 200) {
+        emit(HideLoadingState());
+
         emit(SuccessState(HomeScreen.screenName));
       }
     } catch (e) {
+      emit(HideLoadingState());
+
       if (e is IOException || e is HttpException) {
         emit(ErrorState('Check Your Internet connection'));
       } else {
@@ -39,3 +45,5 @@ class SuccessState extends OTPState {
   String screenName;
   SuccessState(this.screenName);
 }
+
+class HideLoadingState extends OTPState {}

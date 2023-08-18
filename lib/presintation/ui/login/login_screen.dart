@@ -148,6 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         arguments: phoneNumberController
                                             .text, // Pass the phone number as an argument.
                                       );
+                                    } else if (state is HideLoadingState) {
+                                      Navigator.pop(context);
                                     }
                                   }, builder: (context, state) {
                                     return CustomElevatedButton(
