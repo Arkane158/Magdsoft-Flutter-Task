@@ -3,7 +3,11 @@ import 'package:magdsoftfluttertask/presintation/providers/home_provider.dart';
 import 'package:magdsoftfluttertask/presintation/ui/custom_widgets/custom_homebranding_container.dart';
 import 'package:provider/provider.dart';
 
+/// BrandsListView - List of Brand Selection Containers
+///
+/// This widget creates a list of brand selection containers using the Consumer pattern.
 class BrandsListView extends StatelessWidget {
+  /// Constructs a BrandsListView widget.
   const BrandsListView({super.key});
 
   @override

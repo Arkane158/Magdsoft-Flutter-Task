@@ -17,18 +17,19 @@ class LoginViewModel extends Cubit<LoginState> {
         if (response.status == 200) {
           emit(SuccessState(OtpScreen.screenName));
         } else if (response.status == 214) {
+          emit(HideLoadingState());
+
           emit(ErrorState(response.message.toString()));
         } else {
           emit(ErrorState("Unexpected response status: ${response.status}"));
         }
       } else {
-        emit(HideLoadingState());
         emit(ErrorState("Response is null"));
       }
     } catch (e) {
       emit(HideLoadingState());
 
-      if (e is IOException || e is HttpException) {
+      if (e is IOException || e is HttpException) {   
         emit(ErrorState('Check Your Internet connection'));
       } else {
         emit(ErrorState(e.toString()));

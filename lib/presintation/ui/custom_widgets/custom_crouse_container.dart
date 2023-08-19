@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// CustomCrouseContainer - Reusable Custom Container with Background Image
+///
+/// This widget creates a customizable container with a background image.
 class CustomCrouseContainer extends StatelessWidget {
-  const CustomCrouseContainer({super.key, required this.imagePath});
+  /// Constructs a CustomCrouseContainer widget.
+  ///
+  /// Parameters:
+  ///   - imagePath: The path to the image asset used as the background.
+  const CustomCrouseContainer({Key? key, required this.imagePath})
+      : super(key: key);
+
+  /// The path to the image asset used as the background of the container.
   final String imagePath;
 
   @override

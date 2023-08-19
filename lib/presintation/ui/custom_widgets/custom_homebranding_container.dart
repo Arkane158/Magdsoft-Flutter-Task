@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
+/// CustomHomeBrandingContainer - Reusable Container with Branding for Home Screen
+///
+/// This widget creates a customizable container with branding elements for the home screen.
 class CustomHomeBrandingContainer extends StatelessWidget {
+  /// Constructs a CustomHomeBrandingContainer widget.
+  ///
+  /// Parameters:
+  ///   - imagePath: The path to the branding image.
+  ///   - brandName: The name of the brand.
+  ///   - isSelected: Whether the brand is selected.
+  ///   - onTap: Function to be executed when the container is tapped.
   const CustomHomeBrandingContainer({
     Key? key,
     required this.imagePath,
@@ -9,9 +19,16 @@ class CustomHomeBrandingContainer extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
+  /// The path to the branding image.
   final String imagePath;
+
+  /// The name of the brand.
   final String brandName;
+
+  /// Indicates whether the brand is selected.
   final bool isSelected;
+
+  /// Function to be executed when the container is tapped.
   final VoidCallback onTap;
 
   @override
@@ -59,14 +76,15 @@ class CustomHomeBrandingContainer extends StatelessWidget {
                   ),
                 ),
                 Center(
-                    child: Text(
-                  brandName,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
+                  child: Text(
+                    brandName,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ))
+                ),
               ],
             ),
           ),
